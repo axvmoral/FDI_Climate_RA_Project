@@ -1,9 +1,3 @@
-# User Input:
-# Either topic or individual word
-# (Topic) Words to pull data from
-# Compile data into one data set (time series)
-# Export as CSV to working directory
-
 import seaborn as sb
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -27,10 +21,12 @@ while True:
     else:
         kw_list.append(kw)
 
+timeframe = input('Enter Time Frame \n>')
+
 l = []
 conn = TrendReq()
 for country in iso2_codes:
-  conn.build_payload(kw_list, cat=0, timeframe='today 5-y', geo=country, gprop='')
+  conn.build_payload(kw_list, cat=0, timeframe=timeframe, geo=country, gprop='')
   df = conn.interest_over_time()
   df['iso2'] = country
   l.append(df.reset_index())
