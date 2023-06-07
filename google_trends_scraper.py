@@ -1,13 +1,26 @@
-import seaborn as sb
-import matplotlib.pyplot as plt
-import pandas as pd
-import pytrends
-from pytrends.request import TrendReq
-import json
+r'''
+This module implements a web scraper that I designed to scrape Google Trends
+data on user inputted keywords for target countries stored in a user inputted
+dataset containing country names over a user inputted time frame. The module
+creates a timeseries of the average of interest in these keywords over each
+country, and exports it as an xlsx file. It also plots this average for every
+keyword.
+'''
+
+__author__ = 'Axel V. Morales Sanchez'
+
+
+import seaborn as sb # for plotting
+import matplotlib.pyplot as plt # to show plot
+import pandas as pd # to manipulate/store data
+import pytrends # to scrape Google Trends Data
+from pytrends.request import TrendReq # to connect to Google Trends
+import json # to load json data
 
 fname = input('Enter CSV File Name of Countries \n> ')
+column = input('Enter Column Name of Country Names \n>')
 
-target_countries = pd.read_csv(fname)['country']
+target_countries = pd.read_csv(fname)[column]
 json_crosswalk = json.load(open('data/countries_en.json'))
 iso2_codes = []
 for country in target_countries:
